@@ -1,8 +1,6 @@
 import { Service } from "../src/service.decorator";
 import { Container } from "../src/container";
-import { TYPES } from "./types";
 import { expect } from "chai";
-import { Injector } from "../src/injector";
 
 // Fixtures
 @Service()
