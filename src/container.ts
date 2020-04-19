@@ -2,10 +2,19 @@ import { Type } from "./type.interface";
 import { Injector } from "./injector";
 
 export const Container = new (class {
-  public services: any = {};
+  private services: any = {};
+  private injectionsMap: any = {};
+
+  setInjectionMapItem(target: string, dependency: string) {
+    this.injectionsMap[target] = dependency;
+  }
+
+  getInjectionDependency(target: string, dependency: string) {
+    return this.injectionsMap[target] === dependency;
+  }
 
   get(target: Type<object>) {
-    return this.services[target.name];
+    return this.services[target.name] || Injector.resolve(target);
   }
 
   getOrCreate(target: Type<object>, injections: []) {

@@ -1,22 +1,10 @@
 import { Service } from "../src/service.decorator";
 import { Container } from "../src/container";
 import { expect } from "chai";
+import { Foo } from "./services/foo.service";
+import { Bar } from "./services/bar.service";
 
 // Fixtures
-@Service()
-export class Foo {
-  constructor() {
-    console.log("initialize Foo");
-  }
-}
-
-@Service()
-export class Bar {
-  constructor() {
-    console.log("initialize Bar");
-  }
-}
-
 @Service()
 export class Foobar {
   constructor(public foo: Foo, public bar: Bar) {
@@ -31,8 +19,8 @@ export class Baz {
 
 describe("Injector", () => {
   it("should create simple instances", () => {
-    let foo = Container.get(Foo);
-    expect(foo).to.be.an.instanceof(Foo);
+    let bar = Container.get(Bar);
+    expect(bar).to.be.an.instanceof(Bar);
   });
 
   it("should create dependency injected instances", () => {

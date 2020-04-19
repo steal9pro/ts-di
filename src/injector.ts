@@ -7,14 +7,19 @@ export const Injector = new (class {
 
   // resolving instances
   resolve<T>(target: Type<any>) {
-    console.log('start resolve service ', target.name);
-    
+    console.log("start resolve service ", target.name);
+
     // tokens are required dependencies, while injections are resolved tokens from the Injector
     let tokens = Reflect.getMetadata("design:paramtypes", target) || [];
     console.log("tokens = ", tokens, "from target ", target.name);
 
     let injections = tokens.map((token: any) => {
       console.log("resolve token ", token.name);
+
+      if (Container.getInjectionDependency(token.name, target.name)) {
+        throw new Error("Bull shit");
+      }
+      Container.setInjectionMapItem(target.name, token.name);
 
       return Injector.resolve(token);
     });
